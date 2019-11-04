@@ -19,13 +19,6 @@ cmake_policy(SET CMP0008 NEW)
 # By default build shared libraries but allow the user to change if desired
 OPTION(BUILD_SHARED_LIBS "Global flag to cause add_library to create shared libraries if on" ON)
 
-### DEPENDENCIES ############################################################
-
-FIND_PACKAGE( ILCUTIL REQUIRED COMPONENTS ILCSOFT_CMAKE_MODULES ILCTEST )
-
-# load default settings from ILCSOFT_CMAKE_MODULES
-INCLUDE( ilcsoft_default_settings )
-
 SET(CMAKE_CXX_STANDARD 11)
 
 FIND_PACKAGE( ROOT REQUIRED ) 
@@ -56,7 +49,7 @@ ENDIF()
 INCLUDE_DIRECTORIES( BEFORE
    ./include
    )
-INSTALL_DIRECTORY( ./include DESTINATION . FILES_MATCHING PATTERN "*.h" )
+INSTALL( DIRECTORY ./include DESTINATION . FILES_MATCHING PATTERN "*.h" )
 
 # add library
 AUX_SOURCE_DIRECTORY( ./src/Criteria library_sources )
@@ -69,8 +62,8 @@ AUX_SOURCE_DIRECTORY( ./src/KiTrack library_sources )
 
 
 
-ADD_SHARED_LIBRARY( ${PROJECT_NAME} ${library_sources} )
-INSTALL_SHARED_LIBRARY( ${PROJECT_NAME} DESTINATION lib )
+ADD_LIBRARY( ${PROJECT_NAME} ${library_sources} )
+INSTALL( TARGETS ${PROJECT_NAME} DESTINATION lib )
 
 
 
@@ -100,8 +93,15 @@ INCLUDE_DIRECTORIES( ${ILCTEST_INCLUDE_DIRS} )
 
 
 
-# display some variables and write them to cache
-DISPLAY_STD_VARIABLES()
 
-# generate and install following configuration files
-GENERATE_PACKAGE_CONFIGURATION_FILES( KiTrackConfig.cmake KiTrackConfigVersion.cmake KiTrackLibDeps.cmake )
+CONFIGURE_FILE(
+    "${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
+    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake" @ONLY
+)
+INSTALL( FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake" DESTINATION . )
+
+CONFIGURE_FILE(
+    "${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}ConfigVersion.cmake.in"
+    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake" @ONLY
+)
+INSTALL( FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake" DESTINATION . )
