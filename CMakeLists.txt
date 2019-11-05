@@ -16,6 +16,9 @@ SET( ${PROJECT_NAME}_VERSION_PATCH 0 )
 
 cmake_policy(SET CMP0008 NEW)
 
+# By default build shared libraries but allow the user to change if desired
+OPTION(BUILD_SHARED_LIBS "Global flag to cause add_library to create shared libraries if on" ON)
+
 ### DEPENDENCIES ############################################################
 
 FIND_PACKAGE( ILCUTIL REQUIRED COMPONENTS ILCSOFT_CMAKE_MODULES ILCTEST )
