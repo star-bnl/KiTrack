@@ -1,7 +1,7 @@
 #ifndef SubsetHopfieldNN_h
 #define SubsetHopfieldNN_h
 
-#include <CLHEP/Random/RandFlat.h>
+#include "TRandom3.h"
 
 #include "KiTrack/Subset.h"
 #include "KiTrack/HopfieldNeuralNet.h"
@@ -189,7 +189,7 @@ std::vector< Artist > artistsToStayAtHome = subset.getRejected();
          
          
          // Set an initial state
-         states[i] = CLHEP::RandFlat::shoot ( _initStateMin , _initStateMax ); //random ( uniformly ) values from initStateMin to initStateMax
+         states[i] = gRandom->Uniform() * ( _initStateMax - _initStateMin ) + _initStateMin;
          
          
          // Fill the states in the G matrix. (whether two elements are compatible or not
