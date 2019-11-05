@@ -5,6 +5,7 @@
 
 #include "KiTrack/Subset.h"
 #include "KiTrack/HopfieldNeuralNet.h"
+#include "marlin/VerbosityLevels.h"
 
 
 
