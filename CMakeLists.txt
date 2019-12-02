@@ -52,6 +52,7 @@ INCLUDE_DIRECTORIES( BEFORE
 INSTALL( DIRECTORY ./include DESTINATION . FILES_MATCHING PATTERN "*.h" )
 
 # add library
+AUX_SOURCE_DIRECTORY( ./src/marlin library_sources )
 AUX_SOURCE_DIRECTORY( ./src/Criteria library_sources )
 AUX_SOURCE_DIRECTORY( ./src/KiTrack library_sources )  
 
