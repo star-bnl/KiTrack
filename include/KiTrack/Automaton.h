@@ -132,7 +132,7 @@ namespace KiTrack{
        * to layer 0. All those get deleted by this method.
        * (Of course all the connections to them are erased as well)
        */
-      void cleanBadStates( int LayerOffset );
+      void cleanBadStates( int LayerOffset = 0 );
       
       /**
        * Erase alls connections between segments, that don't satisfy the criteria.
