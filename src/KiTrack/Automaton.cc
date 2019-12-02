@@ -419,7 +419,7 @@ void Automaton::doAutomaton(){
 
 
 
-void Automaton::cleanBadStates(){
+void Automaton::cleanBadStates( int LayerOffset ){
 
 
 
@@ -436,7 +436,7 @@ void Automaton::cleanBadStates(){
 
          Segment* segment = *iSeg;
 
-         if( segment->getInnerState() == (int) layer ){ //the state is alright (equals the layer), this segment is good
+         if( segment->getInnerState() == (int) layer - LayerOffset ){ //the state is alright (equals the layer), this segment is good
 
             nKeptSegments++;
 
@@ -631,7 +631,7 @@ std::vector < std::vector< IHit* > > Automaton::getTracksOfSegment ( Segment* se
       for ( std::list<Segment*>::iterator iChild=children.begin(); iChild!= children.end(); iChild++){ //for all children
          
          
-         std::vector < std::vector< IHit* > > newTracks = getTracksOfSegment( *iChild , hits );
+         std::vector < std::vector< IHit* > > newTracks = getTracksOfSegment( *iChild , hits, minHits );
          
          for (unsigned int j=0; j < newTracks.size(); j++){//for all the tracks of the child
             
